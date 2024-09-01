@@ -38,9 +38,11 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.TelegramBot = void 0;
 var grammy_1 = require("grammy");
+//  announce<T extends DomainEvent>(event: T, context?: DomainEventsContext<T['type']>): void {
 var TelegramBot = /** @class */ (function () {
-    function TelegramBot(config) {
+    function TelegramBot(config, eventBus) {
         this.bot = new grammy_1.Bot(config.telegramBotToken);
+        this.eventBus = eventBus;
     }
     TelegramBot.prototype.sendMessage = function (chat_id, msg) {
         return __awaiter(this, void 0, void 0, function () {
@@ -56,8 +58,17 @@ var TelegramBot = /** @class */ (function () {
     };
     TelegramBot.prototype.startBot = function () {
         return __awaiter(this, void 0, void 0, function () {
+            var _this = this;
             return __generator(this, function (_a) {
-                this.bot.on("message", function (ctx) { return ctx.reply("Hi there!"); });
+                //this.bot.on("message", (ctx) => ctx.reply("Hi there!"));
+                this.bot.command("url", function (ctx) { return __awaiter(_this, void 0, void 0, function () {
+                    var url;
+                    return __generator(this, function (_a) {
+                        url = ctx.match;
+                        this.eventBus.emit('set_url', url);
+                        return [2 /*return*/, ctx.reply("I take the URL for processing")];
+                    });
+                }); });
                 this.bot.start();
                 return [2 /*return*/];
             });
