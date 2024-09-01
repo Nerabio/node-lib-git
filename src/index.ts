@@ -11,8 +11,8 @@
 //         console.log('I am Config init()');
 //     }
 // }
-
+const cl = require('./ContactChecker');
 const loggg = function(){
     console.log('I am MODULE');
 }
-module.exports = { loggg};
+module.exports = { loggg, cl };

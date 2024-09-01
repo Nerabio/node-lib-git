@@ -1,4 +1,3 @@
-"use strict";
 // module.exports = function(){
 //     return {
 //         init: () => {
@@ -11,7 +10,8 @@
 //         console.log('I am Config init()');
 //     }
 // }
-const loggg = function () {
+var cl = require('./ContactChecker');
+var loggg = function () {
     console.log('I am MODULE');
 };
-module.exports = { loggg };
+module.exports = { loggg: loggg, cl: cl };
