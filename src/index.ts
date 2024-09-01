@@ -5,3 +5,9 @@ module.exports = function(){
         }
     }
 }
+
+export class Config {
+    init(): void {
+        console.log('I am Config init()');
+    }
+}
