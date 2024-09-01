@@ -64,9 +64,17 @@ var TelegramBot = /** @class */ (function () {
                 this.bot.command("url", function (ctx) { return __awaiter(_this, void 0, void 0, function () {
                     var url;
                     return __generator(this, function (_a) {
-                        url = ctx.match;
-                        this.eventBus.emit('set_url', url);
-                        return [2 /*return*/, ctx.reply("I take the URL for processing")];
+                        // `item` will be "apple pie" if a user sends "/add apple pie".
+                        try {
+                            url = new URL(ctx.match);
+                            this.eventBus.emit('set_url', url);
+                            return [2 /*return*/, ctx.reply("I take the URL for processing")];
+                        }
+                        catch (error) {
+                            this.eventBus.emit('invalid_url');
+                            return [2 /*return*/, ctx.reply("The URL invalid")];
+                        }
+                        return [2 /*return*/];
                     });
                 }); });
                 this.bot.start();

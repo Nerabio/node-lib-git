@@ -42,9 +42,16 @@ export class TelegramBot {
     //this.bot.on("message", (ctx) => ctx.reply("Hi there!"));
     this.bot.command("url", async (ctx) => {
       // `item` will be "apple pie" if a user sends "/add apple pie".
-      const url = ctx.match;
+      try {
+      const url = new URL(ctx.match);
       this.eventBus.emit('set_url', url);
-      return ctx.reply("I take the URL for processing")
+      return ctx.reply("I take the URL for processing");
+    } catch (error) {
+      this.eventBus.emit('invalid_url');
+      return ctx.reply("The URL invalid");
+    }
+      
+      
     });
 
     this.bot.start();
