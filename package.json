@@ -4,15 +4,17 @@
   "description": "",
   "type": "module",
   "main": "index.js",
-"scripts": {
-    "build": "yarn build:esm && yarn build:cjs",
+  "scripts": {
     "build:esm": "tsc",
-    "build:cjs": "tsc --module commonjs --outDir build/cjs"
- },
+    "build:cjs": "tsc --module commonjs --outDir build/cjs",
+    "build": "rollup --config"
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "rollup": "^4.21.2",
+    "rollup-plugin-typescript2": "^0.36.0",
     "typescript": "^5.5.4"
   }
 }
