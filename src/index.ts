@@ -1,6 +1,5 @@
-export function printMsg(): void {
-    console.log("This is a message from the demo package");
-  }
+const sayHello = (name: string) => {
+  return `Hey ${name}, say hello to TypeScript.`;
+}
 
-
-  
+export default sayHello;
