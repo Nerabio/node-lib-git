@@ -1,5 +1,7 @@
-const sayHello = (name: string) => {
-  return `Hey ${name}, say hello to TypeScript.`;
+class App {
+  sayHello(name: string): string {
+    return `Hey ${name}, say hello to TypeScript.`;
+  }
 }
 
-export default sayHello;
+export default App;

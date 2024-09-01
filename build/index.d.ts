@@ -1,2 +1,4 @@
-declare const sayHello: (name: string) => string;
-export default sayHello;
+declare class App {
+    sayHello(name: string): string;
+}
+export default App;
