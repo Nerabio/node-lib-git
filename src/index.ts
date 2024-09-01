@@ -12,4 +12,7 @@
 //     }
 // }
 
-exports.rnd = require('./rnd.js');
+const loggg = function(){
+    console.log('I am MODULE');
+}
+module.exports = { loggg};

@@ -11,4 +11,7 @@
 //         console.log('I am Config init()');
 //     }
 // }
-exports.rnd = require('./rnd.js');
+const loggg = function () {
+    console.log('I am MODULE');
+};
+module.exports = { loggg };
