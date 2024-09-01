@@ -1,10 +1,10 @@
 import typescript from "rollup-plugin-typescript2";
 
 export default {
-	input: 'build/esm/index.js',
+	input: 'build/cjs/index.js',
 	output: {
 		file: './index.js',
-		format: 'esm'
+		format: 'cjs'
 	},
 	plugins: [typescript({ useTsconfigDeclarationDir: true })],
 };
