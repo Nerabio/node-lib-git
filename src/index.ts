@@ -9,11 +9,11 @@ export class Module {
     this.bot = new TelegramBot(config, eventBus);
   }
 
-  async Run(): Promise<void> {
+  async run(): Promise<void> {
     this.bot.startBot()
   }
 
-  async Info(): Promise<{name: string, version: string}> {
+  async info(): Promise<{name: string, version: string}> {
     return Promise.resolve({name: packageInfo.name, version: packageInfo.version}); 
   }
 

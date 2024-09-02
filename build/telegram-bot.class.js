@@ -36,40 +36,60 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.Module = void 0;
-var telegram_bot_class_1 = require("./telegram-bot.class");
-var packageInfo = require('../package.json');
-var Module = /** @class */ (function () {
-    function Module() {
+exports.TelegramBot = void 0;
+var grammy_1 = require("grammy");
+//  announce<T extends DomainEvent>(event: T, context?: DomainEventsContext<T['type']>): void {
+var TelegramBot = /** @class */ (function () {
+    function TelegramBot(config, eventBus) {
+        this.bot = new grammy_1.Bot(config.telegramBotToken);
+        this.eventBus = eventBus;
     }
-    Module.prototype.onInit = function (config, eventBus) {
+    TelegramBot.prototype.sendMessage = function (chat_id, msg) {
         return __awaiter(this, void 0, void 0, function () {
             return __generator(this, function (_a) {
-                this.bot = new telegram_bot_class_1.TelegramBot(config, eventBus);
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, this.bot.api.sendMessage(chat_id, msg)];
+                    case 1:
+                        _a.sent();
+                        return [2 /*return*/];
+                }
+            });
+        });
+    };
+    TelegramBot.prototype.startBot = function () {
+        return __awaiter(this, void 0, void 0, function () {
+            var _this = this;
+            return __generator(this, function (_a) {
+                //this.bot.on("message", (ctx) => ctx.reply("Hi there!"));
+                this.bot.command("url", function (ctx) { return __awaiter(_this, void 0, void 0, function () {
+                    var url;
+                    return __generator(this, function (_a) {
+                        // `item` will be "apple pie" if a user sends "/add apple pie".
+                        try {
+                            url = new URL(ctx.match);
+                            this.eventBus.emit('set_url', url.href);
+                            return [2 /*return*/, ctx.reply("I take the URL for processing")];
+                        }
+                        catch (error) {
+                            this.eventBus.emit('invalid_url');
+                            return [2 /*return*/, ctx.reply("The URL invalid")];
+                        }
+                        return [2 /*return*/];
+                    });
+                }); });
+                this.bot.start();
                 return [2 /*return*/];
             });
         });
     };
-    Module.prototype.run = function () {
+    TelegramBot.prototype.stopBot = function () {
         return __awaiter(this, void 0, void 0, function () {
             return __generator(this, function (_a) {
-                this.bot.startBot();
+                this.bot.stop();
                 return [2 /*return*/];
             });
         });
     };
-    Module.prototype.info = function () {
-        return __awaiter(this, void 0, void 0, function () {
-            return __generator(this, function (_a) {
-                return [2 /*return*/, Promise.resolve({ name: packageInfo.name, version: packageInfo.version })];
-            });
-        });
-    };
-    Module.prototype.onDestroy = function () {
-        return __awaiter(this, void 0, void 0, function () { return __generator(this, function (_a) {
-            return [2 /*return*/];
-        }); });
-    };
-    return Module;
+    return TelegramBot;
 }());
-exports.Module = Module;
+exports.TelegramBot = TelegramBot;
